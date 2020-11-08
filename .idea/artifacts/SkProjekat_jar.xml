@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SkProjekat:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SkProjekat_jar</output-path>
+    <root id="archive" name="SkProjekat.jar">
+      <element id="module-output" name="SkProjekat" />
+    </root>
+  </artifact>
+</component>
