@@ -1,0 +1,5 @@
+- name: "maksa"
+  id: 1
+  attributes:
+    ime: "Prezime"
+    godine: 1212
