@@ -1,0 +1,1 @@
+[{"name":"Predmet","id":1,"attributes":{"UUP":"Uvod u programiranje","OOP":"Objektno orjentisano programiranje","UI":"Upravljanje informacijama","SK":"Softverske komponente","ASP":"Algoritmi i strukture podataka"}},{"name":"Student","id":3,"attributes":{}},{"name":"Student","id":4,"attributes":{"ime":"Nikola","prezime":"Paunovic"}}]

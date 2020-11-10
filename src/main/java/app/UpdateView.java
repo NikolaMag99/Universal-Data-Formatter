@@ -12,6 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Entity;
+import storage.ImportAndExportStorage;
+import storage.Specifikacija;
+import storage.StorageManager;
 
 import java.util.List;
 
@@ -38,17 +42,18 @@ public class UpdateView extends Stage {
         btnUpdate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                int id=Integer.parseInt(UpdateView.getInstance().getTxtId().getText());
-                String name=UpdateView.getInstance().getTxtName().getText();
-                String key=UpdateView.getInstance().getTxtAttribute().getText();
-                String value=UpdateView.getInstance().getTxtValue().getText();
-               // ImportExportStorage  base= ExportImportManager.getStorage();
-              //  CRUDOperations crudOperations=new CRUDOperations(base);
-             //   crudOperations.updateEntity(id, name, key, value);
-             //   List<Entity> list=base.getEntities();
-            //    ObservableList<Entity> obsList= FXCollections.observableArrayList(list);
+                int id = Integer.parseInt(UpdateView.getInstance().getTxtId().getText());
+                String name = UpdateView.getInstance().getTxtName().getText();
+                String key = UpdateView.getInstance().getTxtAttribute().getText();
+                String value = UpdateView.getInstance().getTxtValue().getText();
+                ImportAndExportStorage storage = StorageManager.getBase();
+                Specifikacija spec = new Specifikacija(storage);
+                spec.updateEntity(id, name, key, value);
+                List<Entity> list = storage.getEntities();
+                ObservableList<Entity> obList = FXCollections.observableArrayList(list);
                 MainView.getInstance().getTable().getItems().clear();
-              //  MainView.getInstance().getTable().setItems(obsList);
+                MainView.getInstance().getTable().setItems(obList);
+                MainView.getInstance().getTable().refresh();
             }
         });
 
