@@ -10,17 +10,30 @@ public abstract class ImportAndExportStorage {
     private List<Entity> entities;
     private String baseName;
 
-//    public abstract void open(File file);
+    public abstract void open(File file);
 
     public abstract List<Entity> open(String path);
 
-//    public abstract void save(File folder);
+
+    public abstract void save(File folder);
 
     public abstract void save(List<Entity> entities, String path);
 
-    public abstract void save(Entity entity);
+//    public void save(List<Entity> entities) {
+//        File f = new File(baseName);
+//        save(f);
+//    }
 
-    public abstract void save(int id, String name, Map<String, Object> attributes);
+    public void save(Entity entity) {
+        entities.add(entity);
+        save(entities, baseName);
+    }
+
+    public void save(int id, String name, Map<String, Object> attributes) {
+        Entity entity = new Entity(id, name, attributes);
+        entities.add(entity);
+        save(entities, baseName);
+    }
 
     public List<Entity> getEntities() {
         return entities;

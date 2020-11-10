@@ -1,9 +1,8 @@
 package storage;
 
 import model.Entity;
-import sort_filter.Filter;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ public class Specifikacija {
 
     private String path;
     private List<Entity> entities;
+    private static List<Entity> baza;
     private ImportAndExportStorage storage;
 
     public Specifikacija(ImportAndExportStorage storage) {
@@ -22,6 +22,7 @@ public class Specifikacija {
 
     public void createEntity(int id, String name, Map<String, Object> attributes) {
         Entity e = new Entity(id, name, attributes);
+        storage.getEntities().add(e);
         storage.save(e);
     }
 
@@ -50,63 +51,48 @@ public class Specifikacija {
                 obj = e;
         }
         storage.getEntities().remove(obj);
-        storage.save((Entity) storage.getEntities());
+        storage.save(storage.getEntities(), storage.getBaseName());
     }
 
     public void updateEntity(int id, String name, String key, String value) {
-        List<Entity> ls = Filter.filter(id, name);
-        for (Entity e : ls) {
+        List<Entity> list = Filter.filter(id, name);
+        for (Entity e : list) {
             e.getAttributes().put(key, value);
         }
-        storage.save((Entity) storage.getEntities());
+        storage.save(storage.getEntities(), storage.getBaseName());
     }
 
     public void updateEntity(int id, String name, Map<String, Object> attributes) {
-        List<Entity> ls = Filter.filter(id, name);
-        for (Entity e : ls) {
+        List<Entity> list = Filter.filter(id, name);
+        for (Entity e : list) {
             e.setAttributes(attributes);
         }
-        storage.save((Entity) storage.getEntities());
+        storage.save(storage.getEntities(),  storage.getBaseName());
     }
 
     public void updateEntity(int oldId, int newId, String name, Map<String, Object> attributes) {
-        List<Entity> ls = Filter.filter(oldId, name);
-        for (Entity e : ls) {
+        List<Entity> list = Filter.filter(oldId, name);
+        for (Entity e : list) {
             e.setId(newId);
         }
-        storage.save((Entity) storage.getEntities());
+        storage.save(storage.getEntities(), storage.getBaseName());
     }
 
     public void updateEntity(int id, String newName, String oldName, Map<String, Object> attributes) {
-        List<Entity> ls = Filter.filter(id, oldName);
-        for (Entity e : ls) {
+        List<Entity> list = Filter.filter(id, oldName);
+        for (Entity e : list) {
             e.setName(newName);
         }
-        storage.save((Entity) storage.getEntities());
+        storage.save(storage.getEntities(), storage.getBaseName());
     }
 
-//    // brisemo sve entitete pod nazivom studIndex za studProgram recimo
-//    public void remove(String name, Object keyField, Object valueField) {
-//
+//    public static List<Entity> filter(int id, String name) {
+//        baza = StorageManager.getBase().getEntities();
+//        List<Entity> list = new ArrayList<Entity>();
+//        for (Entity entity : baza) {
+//            if (entity.getId() == id && entity.getName().equals(name))
+//                list.add(entity);
+//        }
+//        return list;
 //    }
-//
-//    public void Entity search(int id);
-//
-//    public void List<Entity> search(String name);
-//
-//    public void List<Entity> search(Map<Object, Object> values);
-//
-//    public void List<Entity> search(String name, Map<Object, Object> values);
-//
-//    public void List<Entity> search(String name, Object key, Object value, Object innerKey);
-//
-//    public void List<Entity> sort(boolean byName, boolean byId, boolean desc);
-//
-//    public void List<Entity> sortSearch(String name, Map<Object, Boolean> descOrAsc);
-//
-//    public void List<Entity> sortSearch(String name, Map<Object, Object> values, Map<Object, Boolean> descOrAsc);
-//
-//    public void List<Entity> sortSearch(String name, Object key, Object value, Object innerKey, Map<Object, Boolean> descOrAsc);
-
-
 }
