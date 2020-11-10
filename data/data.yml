@@ -1,5 +1,7 @@
-- name: "maksa"
-  id: 1
+- name: "Student"
+  id: 2
   attributes:
-    ime: "Prezime"
-    godine: 1212
+    ime: "Paun"
+    prezime: "tibor"
+    Ime:
+      Srednje: "Mirs"

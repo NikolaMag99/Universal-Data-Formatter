@@ -1,5 +1,8 @@
+package YAMLStorage;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import com.fasterxml.jackson.dataformat.yaml.YAMLParser;
 import model.Entity;
 import storage.ImportAndExportStorage;
 
@@ -7,11 +10,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
+import storage.StorageManager;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,13 +21,32 @@ import java.util.Map;
 public class YAMLImpl extends ImportAndExportStorage {
 
     static {
-        //   StorageManager.registerStorage(new YAMLImpl());
+        StorageManager.setImportAdnExport(new YAMLImpl());
     }
 
     private List<Entity> entiteti;
 
     public YAMLImpl() {
         entiteti = new ArrayList<Entity>();
+    }
+
+    @Override
+    public void open(File folder) {
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        this.setEntities(new ArrayList<>());
+        try {
+            this.setEntities(new ArrayList<Entity>());
+            for (File file : folder.listFiles()) {
+                this.getEntities().addAll(mapper.readValue(file, new TypeReference<List<Entity>>() {
+                }));
+            }
+            for (Entity entity : this.getEntities())
+                System.out.println(entity);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -43,37 +64,47 @@ public class YAMLImpl extends ImportAndExportStorage {
     }
 
     @Override
-    public void save(Entity entity) {
-        entiteti.add(entity);
-        try {
-            writeEntityListToFile(entiteti, "C:\\Users\\Nikola\\Desktop\\SK\\YAMLimpl\\data\\data.yml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void save(File file) {
+
     }
 
     @Override
-    public void save(List<Entity> entities, String path) {
-
-        entiteti.addAll(entities);
-
+    public void save(Entity entity) {
+        File file = new File("C:\\Users\\Nikola\\Desktop\\SK\\YAMLimpl\\data\\data.yml");
+        entiteti.add(entity);
         try {
-            writeEntityListToFile(entiteti, path);
+            writeEntityListToFile(entiteti, file);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public boolean writeEntityListToFile(List<Entity> entityList, String path) throws Exception {
+    /**
+     * Metoda za cuvanje entitea u file
+     * @param entities List entiteta koja treba da se cuva
+     * @param path Putanja do fajla u koji treba da se sacuva
+     *             salio sam se :( nisam znao
+     */
+    @Override
+    public void save(List<Entity> entities, String path) {
+
+        File folder = new File(path);
+        for (File file: folder.listFiles()){
+            try {
+                writeEntityListToFile(entities, file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void writeEntityListToFile(List<Entity> entityList, File file) throws Exception {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER));
-        String yaml = mapper.writeValueAsString(entityList);
-        stringToFile(path, yaml);
-        return true;
+        mapper.writeValue(file, entityList);
     }
 
 
-    private void stringToFile(String destinationPath, String data) {
-        File file = new File(destinationPath);
+    private void stringToFile(File file, String data) {
         file.setWritable(true);
         try (FileOutputStream fos = new FileOutputStream(file);
              BufferedOutputStream bos = new BufferedOutputStream(fos)) {
