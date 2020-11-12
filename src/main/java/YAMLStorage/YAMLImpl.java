@@ -49,6 +49,7 @@ public class YAMLImpl extends ImportAndExportStorage {
 
     }
 
+
     @Override
     public List<Entity> open(String path) {
         ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
@@ -62,6 +63,7 @@ public class YAMLImpl extends ImportAndExportStorage {
 
         return entiteti;
     }
+
 
     @Override
     public void save(File file) {
@@ -83,7 +85,7 @@ public class YAMLImpl extends ImportAndExportStorage {
      * Metoda za cuvanje entitea u file
      * @param entities List entiteta koja treba da se cuva
      * @param path Putanja do fajla u koji treba da se sacuva
-     *             salio sam se :( nisam znao
+     *
      */
     @Override
     public void save(List<Entity> entities, String path) {
@@ -126,8 +128,8 @@ public class YAMLImpl extends ImportAndExportStorage {
     }
 
 
-    @Override
-    public void save(int i, String s, Map<String, Object> map) {
-
-    }
+//    @Override
+//    public void save(int i, String s, Map<String, Object> map) {
+//
+//    }
 }

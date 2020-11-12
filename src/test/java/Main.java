@@ -23,10 +23,10 @@ public class Main {
         entities.add(paun);
 
         //yaml.save(entities, putanja);
-        yaml.save(maksa);
-        noviEnti = yaml.open(putanja);
-        for (Entity e : noviEnti) {
-            System.out.println(e);
-        }
+//        yaml.save(maksa);
+//        noviEnti = yaml.open(putanja);
+//        for (Entity e : noviEnti) {
+//            System.out.println(e);
+//        }
     }
 }

@@ -1,7 +1,4 @@
-- name: "Student"
-  id: 2
+- name: "Name"
+  id: 4
   attributes:
-    ime: "Paun"
-    prezime: "tibor"
-    Ime:
-      Srednje: "Mirs"
+    ime: "PAUN"
