@@ -84,22 +84,14 @@ public class MainView extends Stage {
         });
 
         btnSave.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                FileChooser fileChooser = new FileChooser();
-                File file = fileChooser.showSaveDialog(MainView.getInstance());
-                MainView.getInstance().setSelectedDirectory(file);
 
-                try {
-                    Class.forName("JsonStorage.JSONImpl");
-                } catch (ClassNotFoundException e) {
-                    System.out.println("nije nasao klasu");
-                    e.printStackTrace();
-                }
-                StorageManager.setImportAdnExport(new JSONImpl());
-                //StorageManager.setBase(new YAMLImpl());
-                ImportAndExportStorage base = StorageManager.getStorage(file.getAbsolutePath());
-                base.save(file);
+            public void handle(ActionEvent event) {
+//                FileChooser fileChooser = new FileChooser();
+//                File file = fileChooser.showSaveDialog(MainView.getInstance());
+//                MainView.getInstance().setSelectedDirectory(file);
+//
+//                ImportAndExportStorage base = StorageManager.getStorage(file.getAbsolutePath());
+//                base.save(file);
             }
         });
 
@@ -127,8 +119,6 @@ public class MainView extends Stage {
                     }
                 }
 
-                // StorageManager.setImportAdnExport(new JSONImpl());
-                //StorageManager.setBase(new YAMLImpl());
                 ImportAndExportStorage base = StorageManager.getStorage(selectedDirectory.getAbsolutePath());
                 base.open(selectedDirectory);
                 ObservableList<Entity> list = FXCollections.observableArrayList(base.getEntities());
@@ -158,7 +148,7 @@ public class MainView extends Stage {
         });
 
         btnCreateEntity.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
+
             public void handle(ActionEvent event) {
                 NestedEntityView.getInstance().show();
             }
@@ -177,10 +167,10 @@ public class MainView extends Stage {
         btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 
             public void handle(ActionEvent event) {
-                Entity e = MainView.getInstance().getTable().getSelectionModel().getSelectedItem();
+                Entity entity = MainView.getInstance().getTable().getSelectionModel().getSelectedItem();
                 ImportAndExportStorage base = StorageManager.getBase();
-                Specifikacija crud = new Specifikacija(base);
-                crud.deleteEntity(e.getId(), e.getName());
+                Specifikacija spec = new Specifikacija(base);
+                spec.deleteEntity(entity.getId(), entity.getName());
                 List<Entity> list = base.getEntities();
                 ObservableList<Entity> obsList = FXCollections.observableArrayList(list);
                 MainView.getInstance().getTable().getItems().clear();
