@@ -110,9 +110,18 @@ public class MainView extends Stage {
                         System.out.println("nije nasao klasu");
                         e.printStackTrace();
                     }
-                } else {
+                }
+                 else if(selectedDirectory.listFiles()[0].getAbsolutePath().endsWith(".yml")) {
                     try {
                         Class.forName("YAMLStorage.YAMLImpl");
+                    } catch (ClassNotFoundException e) {
+                        System.out.println("nije nasao klasu");
+                        e.printStackTrace();
+                    }
+                }
+                 else {
+                    try {
+                        Class.forName("customStorage.CustomImpl");
                     } catch (ClassNotFoundException e) {
                         System.out.println("nije nasao klasu");
                         e.printStackTrace();
