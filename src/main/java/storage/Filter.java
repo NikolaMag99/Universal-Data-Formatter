@@ -14,6 +14,13 @@ public class Filter {
         storage = StorageManager.getBase().getEntities();
     }
 
+    /**
+     * Metoda za filtriranje entiteta po id-u i imenu
+     *
+     * @param id   entiteta
+     * @param name ime entiteta
+     * @return vraca listu pronadjenih entiteta koji odgovaraju trazenim paramterima
+     */
     public static List<Entity> filter(int id, String name) {
         storage = StorageManager.getBase().getEntities();
         List<Entity> list = new ArrayList<Entity>();

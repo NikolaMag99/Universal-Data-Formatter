@@ -24,8 +24,6 @@ public class Entity {
     }
 
     public Entity() {
-        this.id = 0;
-        this.name = "";
         this.attributes = new HashMap<String, Object>();
     }
 

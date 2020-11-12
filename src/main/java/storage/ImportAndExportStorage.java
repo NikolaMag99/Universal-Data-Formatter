@@ -10,19 +10,24 @@ public abstract class ImportAndExportStorage {
     private List<Entity> entities;
     private String baseName;
 
+    /**
+     * Metoda za otvaranje fajla iz foldera
+     *
+     * @param file fajl koji se otvara
+     */
     public abstract void open(File file);
 
     public abstract List<Entity> open(String path);
 
-
     public abstract void save(File folder);
 
+    /**
+     * Metoda za cuvanje entitea u file
+     *
+     * @param entities Lista entiteta koja treba da se cuva
+     * @param path     Putanja do fajla u koji treba da se sacuva
+     */
     public abstract void save(List<Entity> entities, String path);
-
-//    public void save(List<Entity> entities) {
-//        File f = new File(baseName);
-//        save(f);
-//    }
 
     public void save(Entity entity) {
         entities.add(entity);

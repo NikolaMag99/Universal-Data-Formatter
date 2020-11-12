@@ -1,0 +1,5 @@
+storage\Filter.class
+storage\StorageManager.class
+model\Entity.class
+storage\ImportAndExportStorage.class
+storage\Specifikacija.class

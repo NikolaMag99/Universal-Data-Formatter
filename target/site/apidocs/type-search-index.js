@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"model","l":"Entity"},{"p":"storage","l":"Filter"},{"p":"storage","l":"ImportAndExportStorage"},{"p":"storage","l":"Specifikacija"},{"p":"storage","l":"StorageManager"}]
