@@ -1,7 +1,7 @@
 import customStorage.CustomImpl;
 import model.Entity;
 
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,21 +13,20 @@ public class Main {
         CustomImpl impl = new CustomImpl();
 
         String path = "C:\\Users\\Nikola\\Desktop\\SK\\CustomImpl\\data\\data.txt";
-
+        File file = new File("C:\\Users\\Nikola\\Desktop\\SK\\TestCustom");
+        File file2 = new File(path);
         Map<String, Object> map = new HashMap<>();
-        Map<String, Entity> map2 = new HashMap<>();
         Map<String, Object> map3 = new HashMap<>();
 
 
+        map3.put("ime", "Nikola");
+        map3.put("prezime", "Paunovic");
+        map3.put("predmet", "Sk");
 
+        Entity ent = new Entity(1, "student", map3);
+        map.put("prezime", "Paunovic");
         map.put("ime", "Paun");
-        map.put("prezime", "Paun");
-        map.put("ime", "Paun");
 
-
-        Entity ent = new Entity(1, "student", map);
-
-       // map.put("ime", ent);
         Entity ent2 = new Entity(2, "student", map);
         Entity ent3 = new Entity(3, "student", map);
 
@@ -38,6 +37,9 @@ public class Main {
         entities.add(ent3);
 
         impl.save(entities, path);
+        //impl.open(file2);
+
+
     }
 
 

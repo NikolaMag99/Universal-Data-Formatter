@@ -1,21 +1,22 @@
 #-
-id*1
-name*student
+id/1
+name/student
 attributes..
-  ime*Paun
-  prezime*Paun
+	ime/Nikola
+	prezime/Paunovic
+	predmet/Sk
 -#
 #-
-id*2
-name*student
+id/2
+name/student
 attributes..
-  ime*Paun
-  prezime*Paun
+	prezime/Paunovic
+	ime/Paun
 -#
 #-
-id*3
-name*student
+id/3
+name/student
 attributes..
-  ime*Paun
-  prezime*Paun
+	prezime/Paunovic
+	ime/Paun
 -#

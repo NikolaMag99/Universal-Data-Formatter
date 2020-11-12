@@ -2,58 +2,92 @@ package customStorage;
 
 import model.Entity;
 import storage.ImportAndExportStorage;
+import storage.StorageManager;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class CustomImpl extends ImportAndExportStorage {
 
+    static {
+        StorageManager.setImportAdnExport(new CustomImpl());
+    }
 
     @Override
     public void open(File folder) {
+
+        ArrayList<Entity> entitetit = new ArrayList<>();
         try {
-            this.setEntities(new ArrayList<Entity>());
-            for (File file : folder.listFiles()) {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNext()) {
+            Scanner scanner = new Scanner(folder);
 
-                    String parser = scanner.nextLine();
-                    Entity entity = new Entity();
-                    if(parser.contains("#-"))
-                        continue;
-                    if(parser.startsWith("id/")){
-                        String[] zvezdica =parser.split("/");
-                        entity.setId(Integer.parseInt(zvezdica[1]));
-                        continue;
+            while (scanner.hasNext()) {
+                String parser = scanner.nextLine();
+                Entity entity = new Entity();
+                if (parser.contains("#-"))
+                    continue;
+
+                if (parser.startsWith("id/")) {
+                    String razmak[] = parser.split("/");
+                    entity.setId(Integer.parseInt(razmak[1]));
+                    entitetit.add(entity);
+                    continue;
+                }
+
+                if (parser.startsWith("name/")) {
+                    String razmak[] = parser.split("/");
+                    entity.setName((razmak[1]));
+                    continue;
+                }
+                Map<String, Object> attributes = new HashMap<String, Object>();
+                Map<String, Object> entAtr = new HashMap<String, Object>();
+
+                if (parser.startsWith("attributes..")) {
+                    scanner.nextLine();
+                    while (scanner.nextLine().equals("-#")) {
+                        parser.startsWith("\t");
+                        String razmak[] = parser.split("/");
+                        attributes.put(razmak[0], razmak[1]);
+                        entity.setAttributes(attributes);
+
+                        if (scanner.nextLine().equals("["))
+                            continue;
+                        if (parser.startsWith("id/")) {
+                            String razmak1[] = parser.split("/");
+                            entity.setId(Integer.parseInt(razmak1[1]));
+                            continue;
+                        }
+                        if (parser.startsWith("name/")) {
+                            String razmak2[] = parser.split("/");
+                            entity.setName(razmak2[1]);
+
+                            continue;
+                        }
+                        if (parser.startsWith("attributes..")) {
+                            scanner.nextLine();
+                            while (scanner.nextLine().equals("]")) {
+                                String razmakAtr[] = parser.split("/");
+                                entAtr.put(razmakAtr[0], razmakAtr[1]);
+                                entity.setAttributes(entAtr);
+
+                            }
+                        }
+
                     }
-                    if (parser.startsWith("name/")){
-                        String[] zvezdica =parser.split("/");
-                        entity.setId(Integer.parseInt(zvezdica[1]));
-                        continue;
-                    }
-
-
 
                 }
+
+                if (parser.endsWith("-#")) {
+                    continue;
+                }
+
             }
 
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            for (Entity e : entitetit)
+                System.out.println(e);
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
         }
 
-    }
-
-    @Override
-    public List<Entity> open(String s) {
-        return null;
-    }
-
-    @Override
-    public void save(File file) {
 
     }
 
@@ -78,19 +112,30 @@ public class CustomImpl extends ImportAndExportStorage {
                 stringBuilder.append("attributes..");
                 stringBuilder.append("\n");
                 for (Map.Entry<String, Object> map : entity.getAttributes().entrySet()) {
-                    stringBuilder.append("  ");
+                    stringBuilder.append("\t");
                     stringBuilder.append(map.getKey());
                     stringBuilder.append("/");
                     stringBuilder.append(map.getValue());
                     stringBuilder.append("\n");
                     if (map.getValue() instanceof Entity) {
-//                        for (Map.Entry<String,Entity> mapa2: entity.getAttributes().entrySet()){
-//
-//
-//                        }
-                        stringBuilder.append("[");
-                        stringBuilder.append("\n");
-                        stringBuilder.append("]");
+                        for (Map.Entry<String, Entity> mapa2 : entity.getDeca().entrySet()) {
+                            stringBuilder.append("[");
+                            stringBuilder.append("\n");
+                            stringBuilder.append("\t");
+                            stringBuilder.append("name/");
+                            stringBuilder.append(entity.getName());
+                            if (stringBuilder.append("attributes..").equals(true)) {
+                                stringBuilder.append("\n");
+                                for (Map.Entry<String, Object> atributi : entity.getAttributes().entrySet()) {
+                                    stringBuilder.append("\t");
+                                    stringBuilder.append(map.getKey());
+                                    stringBuilder.append("/");
+                                    stringBuilder.append(map.getValue());
+                                    stringBuilder.append("\n");
+                                }
+                            }
+                            stringBuilder.append("]");
+                        }
                     }
                 }
                 stringBuilder.append("-#");
