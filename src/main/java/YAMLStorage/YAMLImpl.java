@@ -1,22 +1,19 @@
 package YAMLStorage;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import com.fasterxml.jackson.dataformat.yaml.YAMLParser;
-import model.Entity;
-import storage.ImportAndExportStorage;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import model.Entity;
+import storage.ImportAndExportStorage;
 import storage.StorageManager;
 
-import java.io.*;
-import java.nio.file.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class YAMLImpl extends ImportAndExportStorage {
 
@@ -50,48 +47,48 @@ public class YAMLImpl extends ImportAndExportStorage {
     }
 
 
-    @Override
-    public List<Entity> open(String path) {
-        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
-        List<Entity> entiteti = null;
-        try {
-            entiteti = objectMapper.readValue(new File(path), new TypeReference<List<Entity>>() {
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//    @Override
+//    public List<Entity> open(String path) {
+//        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
+//        List<Entity> entiteti = null;
+//        try {
+//            entiteti = objectMapper.readValue(new File(path), new TypeReference<List<Entity>>() {
+//            });
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return entiteti;
+//    }
+//
+//
+//    @Override
+//    public void save(File file) {
+//
+//    }
 
-        return entiteti;
-    }
-
-
-    @Override
-    public void save(File file) {
-
-    }
-
-    @Override
-    public void save(Entity entity) {
-        File file = new File("C:\\Users\\Nikola\\Desktop\\SK\\YAMLimpl\\data\\data.yml");
-        entiteti.add(entity);
-        try {
-            writeEntityListToFile(entiteti, file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Override
+//    public void save(Entity entity) {
+//        File file = new File("C:\\Users\\Nikola\\Desktop\\SK\\YAMLimpl\\data\\data.yml");
+//        entiteti.add(entity);
+//        try {
+//            writeEntityListToFile(entiteti, file);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * Metoda za cuvanje entitea u file
-     * @param entities List entiteta koja treba da se cuva
-     * @param path Putanja do fajla u koji treba da se sacuva
      *
+     * @param entities List entiteta koja treba da se cuva
+     * @param path     Putanja do fajla u koji treba da se sacuva
      */
     @Override
     public void save(List<Entity> entities, String path) {
 
         File folder = new File(path);
-        for (File file: folder.listFiles()){
+        for (File file : folder.listFiles()) {
             try {
                 writeEntityListToFile(entities, file);
             } catch (Exception e) {
