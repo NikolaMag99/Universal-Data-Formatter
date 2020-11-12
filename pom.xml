@@ -4,12 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>Sk</groupId>
     <artifactId>JSONImpl</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <maven.compile.target>11</maven.compile.target>
+        <maven.compile.source>11</maven.compile.source>
+    </properties>
+
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+
+        <dependency>
+            <groupId>Sk</groupId>
+            <artifactId>SkProjekat</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -26,6 +37,21 @@
             <version>2.10.1</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
 
 
 </project>

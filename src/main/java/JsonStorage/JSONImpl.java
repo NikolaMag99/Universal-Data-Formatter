@@ -97,14 +97,4 @@ public class JSONImpl extends ImportAndExportStorage {
         }
     }
 
-    @Override
-    public void save(Entity entity) {
-
-    }
-
-    @Override
-    public void save(int i, String s, Map<String, Object> map) {
-
-    }
-
 }

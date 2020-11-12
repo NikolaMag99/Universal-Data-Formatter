@@ -24,9 +24,9 @@ public class Main {
         entities.add(paun);
 
         // json.save(entities, putanja);
-        noviEnti = json.open(putanja);
-        for(Entity e: noviEnti){
-            System.out.println(e);
-        }
+//        noviEnti = json.open(putanja);
+//        for(Entity e: noviEnti){
+//            System.out.println(e);
+//        }
     }
 }
