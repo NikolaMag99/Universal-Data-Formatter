@@ -6,6 +6,10 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Abstraktna klasa koja ima samo open i save metode koje ce da uzimaju json,yaml i custom format
+ * I tamo implementirati svoju logiku za ove metode u zavisnosti od formata
+ */
 public abstract class ImportAndExportStorage {
     private List<Entity> entities;
     private String baseName;
@@ -17,9 +21,9 @@ public abstract class ImportAndExportStorage {
      */
     public abstract void open(File file);
 
-    public abstract List<Entity> open(String path);
-
-    public abstract void save(File folder);
+//    public abstract List<Entity> open(String path);
+//
+//    public abstract void save(File folder);
 
     /**
      * Metoda za cuvanje entitea u file
@@ -29,6 +33,10 @@ public abstract class ImportAndExportStorage {
      */
     public abstract void save(List<Entity> entities, String path);
 
+    /**
+     * Cuvanje jednog entiteta
+     * @param entity
+     */
     public void save(Entity entity) {
         entities.add(entity);
         save(entities, baseName);

@@ -72,6 +72,8 @@ public class Specifikacija {
      *
      * @param id   entiteta kog brisemo
      * @param name ime entiteta kog brisemo
+     *             <p>
+     *             Na kraju poziva save kako bi se i sacuvale izmene u formatu
      */
     public void deleteEntity(int id, String name) {
         Entity obj = null;
@@ -90,6 +92,8 @@ public class Specifikacija {
      * @param name  ime entiteta
      * @param key   kljuc entita ili ti atribut
      * @param value vrednost tog atributa
+     *              <p>
+     *              Na kraju poziva save kako bi se i sacuvale izmene u formatu
      */
     public void updateEntity(int id, String name, String key, String value) {
         List<Entity> list = Filter.filter(id, name);
@@ -105,6 +109,8 @@ public class Specifikacija {
      * @param id         entiteta
      * @param name       ime entiteta
      * @param attributes svi atributi tog entiteta
+     *                   <p>
+     *                   Na kraju poziva save kako bi se i sacuvale izmene u formatu
      */
     public void updateEntity(int id, String name, Map<String, Object> attributes) {
         List<Entity> list = Filter.filter(id, name);
@@ -121,6 +127,8 @@ public class Specifikacija {
      * @param newId      novi id entiteta
      * @param name       ime entiteta
      * @param attributes svi atributi entiteta
+     *                   <p>
+     *                   Na kraju poziva save kako bi se i sacuvale izmene u formatu
      */
     public void updateEntity(int oldId, int newId, String name, Map<String, Object> attributes) {
         List<Entity> list = Filter.filter(oldId, name);
@@ -137,6 +145,8 @@ public class Specifikacija {
      * @param newName    novo ime entiteta
      * @param oldName    staro ime entiteta
      * @param attributes svi atributi entiteta
+     *                   <p>
+     *                   Na kraju poziva save kako bi se i sacuvale izmene u formatu
      */
     public void updateEntity(int id, String newName, String oldName, Map<String, Object> attributes) {
         List<Entity> list = Filter.filter(id, oldName);
