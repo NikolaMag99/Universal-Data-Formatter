@@ -1,22 +1,20 @@
 package JsonStorage;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
+import model.Entity;
+import storage.ImportAndExportStorage;
+import storage.StorageManager;
+
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
-
-import model.Entity;
-import storage.ImportAndExportStorage;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import storage.StorageManager;
 
 public class JSONImpl extends ImportAndExportStorage {
 
@@ -37,29 +35,29 @@ public class JSONImpl extends ImportAndExportStorage {
 
     }
 
-    @Override
-    public List<Entity> open(String s) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Entity> entiteti = null;
-        try {
-            entiteti = objectMapper.readValue(new File(s), new TypeReference<List<Entity>>() {
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return entiteti;
-    }
-
-    @Override
-    public void save(File file) {
-
-    }
+//    @Override
+//    public List<Entity> open(String s) {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        List<Entity> entiteti = null;
+//        try {
+//            entiteti = objectMapper.readValue(new File(s), new TypeReference<List<Entity>>() {
+//            });
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return entiteti;
+//    }
+//
+//    @Override
+//    public void save(File file) {
+//
+//    }
 
     @Override
     public void save(List<Entity> list, String s) {
         ObjectMapper objectMapper = new ObjectMapper();
         File folder = new File(s);
-        for (File file: folder.listFiles()) {
+        for (File file : folder.listFiles()) {
             try {
                 objectMapper.writeValue(file, list);
             } catch (IOException e) {
@@ -69,14 +67,14 @@ public class JSONImpl extends ImportAndExportStorage {
     }
 
 
-    public void save(File folder, String name) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writeValue(new File(name), folder);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void save(File folder, String name) {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        try {
+//            objectMapper.writeValue(new File(name), folder);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void open(File folder) {
         try {
